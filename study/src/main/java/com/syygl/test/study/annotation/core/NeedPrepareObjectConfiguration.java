@@ -30,9 +30,11 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Objects;
 
-
+/**
+ * 先获取被NeedPrepareObject注解标识的类，再获取类中被标识了的成员变量
+ */
 @Configuration
-public class ListenerContainerConfiguration implements ApplicationContextAware, SmartInitializingSingleton {
+public class NeedPrepareObjectConfiguration implements ApplicationContextAware, SmartInitializingSingleton {
     private ConfigurableApplicationContext applicationContext;
 
     @Override
