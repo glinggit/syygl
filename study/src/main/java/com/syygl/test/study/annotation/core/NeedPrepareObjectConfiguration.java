@@ -21,6 +21,10 @@ import com.syygl.test.study.annotation.NeedPrepareObject;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.SmartInitializingSingleton;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -31,7 +35,16 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
+ * spring中bean 的多例与单例，默认都是单例
+ * 在springBoot项目中如果要配置单例或者多例，可以在对应的bean上加一个@scope()注解
+ * <bean id="hi" class="com.test.Hi" init-method="init" scope="singleton">
+ * singleton 单例
+ * prototype多例
+ * <p>
  * 先获取被NeedPrepareObject注解标识的类，再获取类中被标识了的成员变量
+ * <p>
+ * 实现该接口后，当所有单例 bean 都初始化完成以后， 容器会回调该接口的方法 afterSingletonsInstantiated。
+ * 主要应用场合就是在所有单例 bean 创建完成之后，可以在该回调中做一些事情。
  */
 @Configuration
 public class NeedPrepareObjectConfiguration implements ApplicationContextAware, SmartInitializingSingleton {
@@ -44,10 +57,25 @@ public class NeedPrepareObjectConfiguration implements ApplicationContextAware, 
 
     @Override
     public void afterSingletonsInstantiated() {
+        //获取指定类型的bean存在局限性
         Map<String, Object> beans = this.applicationContext.getBeansWithAnnotation(NeedPrepareObject.class);
         if (Objects.nonNull(beans)) {
             beans.forEach(this::registerContainer);
         }
+        //获取所有的class类
+        ConfigurableListableBeanFactory beanFactory = this.applicationContext.getBeanFactory();
+        if (beanFactory instanceof DefaultListableBeanFactory) {
+            DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) beanFactory;
+            for (String name : defaultListableBeanFactory.getBeanDefinitionNames()) {
+                BeanDefinition beanDefinition = defaultListableBeanFactory.getBeanDefinition(name);
+                if (beanDefinition instanceof RootBeanDefinition) {
+                    RootBeanDefinition rootBeanDefinition = (RootBeanDefinition) beanDefinition;
+                    //processBeanClass(rootBeanDefinition.getTargetType(), name);
+                }
+            }
+        }
+        //获取所有Bean的名称
+        String[] beanDefinitionNames = this.applicationContext.getBeanDefinitionNames();
     }
 
     private void registerContainer(String beanName, Object bean) {
