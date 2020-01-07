@@ -37,7 +37,7 @@ import java.util.Objects;
 /**
  * spring中bean 的多例与单例，默认都是单例
  * 在springBoot项目中如果要配置单例或者多例，可以在对应的bean上加一个@scope()注解
- * <bean id="hi" class="com.test.Hi" init-method="init" scope="singleton">
+ * <bean id="hi" class="com.validationTest.Hi" init-method="init" scope="singleton">
  * singleton 单例
  * prototype多例
  * <p>
