@@ -1,6 +1,5 @@
 package com.syygl.test.study.annotation.core;
 
-import com.syygl.test.study.annotation.NeedPrepareObject;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -8,9 +7,6 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 /**
  * BeanFactoryPostProcessor是用来处理修改bean定义信息的后置处理器，
@@ -44,15 +40,15 @@ public class BeanFactoryPostProcessorTest implements BeanFactoryPostProcessor {
     }
 
     private void processBeanClass(Class<?> clazz, String beanName) {
-        Method[] methods = clazz.getMethods();
-        Field[] declaredFields = clazz.getDeclaredFields();
-        for (Method method : methods) {
-            //获取含有特定注解的方法
-            method.getAnnotation(NeedPrepareObject.class);
-        }
-        for (Field field : declaredFields) {
-            //获取含有特定注解的成员变量
-            field.getAnnotation(NeedPrepareObject.class);
-        }
+//        Method[] methods = clazz.getMethods();
+//        Field[] declaredFields = clazz.getDeclaredFields();
+//        for (Method method : methods) {
+//            //获取含有特定注解的方法
+//            method.getAnnotation(NeedPrepareObject.class);
+//        }
+//        for (Field field : declaredFields) {
+//            //获取含有特定注解的成员变量
+//            field.getAnnotation(NeedPrepareObject.class);
+//        }
     }
 }
