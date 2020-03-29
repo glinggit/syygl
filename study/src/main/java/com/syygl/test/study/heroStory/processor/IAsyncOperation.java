@@ -19,7 +19,7 @@ public interface IAsyncOperation {
     void doAsync();
 
     /**
-     * 执行完成逻辑
+     * 执行完成逻辑，具体实现中选择是否重写该方法
      */
     default void doFinish() {
     }
