@@ -16,7 +16,7 @@ public interface IAsyncOperation {
     /**
      * 执行异步操作
      */
-    void doAsync();
+    void doAsync() throws InterruptedException;
 
     /**
      * 执行完成逻辑，具体实现中选择是否重写该方法

@@ -52,7 +52,11 @@ public class AsyncOperationProcessor {
 
         _esArray[esIndex].submit(() -> {
             // 执行异步操纵
-            asyncOp.doAsync();
+            try {
+                asyncOp.doAsync();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             // 回到主消息处理器执行完成逻辑
             MainThreadProcessor.getInstance().process(asyncOp::doFinish);
