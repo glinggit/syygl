@@ -49,6 +49,7 @@ public class DemoTest {
         // 将该CtClass从ClassPool中移除，
         clazz.detach();
 
+
         clazz.writeFile("C:/Data/Temp+Test/debug-java");
 
         // 这时载入的TestClass已经被修改

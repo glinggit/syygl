@@ -12,9 +12,10 @@ public abstract class Template {
     public final void templatemethod() {
         //定义完成一组算法
         if(this.isHook()){
-
+            doSomething();
+            doSomething2();
         }
-        //todo
+
     }
 
     //钩子方法，将不确定性的东西留给具体的实现
