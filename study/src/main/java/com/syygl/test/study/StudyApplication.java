@@ -16,7 +16,6 @@ public class StudyApplication {
         ConfigurableApplicationContext run = SpringApplication.run(StudyApplication.class, args);
 
 
-        BigDecimal bigDecimal = new BigDecimal("1000");
 
 
 

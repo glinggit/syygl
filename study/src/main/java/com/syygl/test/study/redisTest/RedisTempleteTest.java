@@ -22,6 +22,9 @@ public class RedisTempleteTest {
         ListOperations listOperations = redisTemplate.opsForList();
 
 
+        //jedis和redisson     redisTemplete
+
+
     }
 
 
